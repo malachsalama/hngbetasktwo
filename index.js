@@ -6,10 +6,20 @@ require("dotenv").config();
 
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    // The connection is successful, you can start your Express server here.
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+  });
 
 // Mongoose schema
 const userSchema = new mongoose.Schema({
@@ -95,8 +105,4 @@ app.delete("/api/users/:id", async (req, res) => {
     console.error("Error deleting user:", err);
     res.status(500).send("Internal Server Error");
   }
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
 });
