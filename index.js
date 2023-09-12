@@ -63,7 +63,7 @@ app.get("/api/users/:id", async (req, res) => {
 });
 
 // Update a user by ID
-app.put("/users/:id", async (req, res) => {
+app.put("/api/users/:id", async (req, res) => {
   const userId = req.params.id;
   const updatedUser = req.body;
   try {
