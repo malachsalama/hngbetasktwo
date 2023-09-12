@@ -13,32 +13,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Mongoose schema
 const userSchema = new mongoose.Schema({
-  slack_name: {
+  name: {
     type: String,
-    required: true,
-  },
-  track: {
-    type: String,
-    required: true,
-  },
-  github_file_url: {
-    type: String,
-    required: true,
-  },
-  github_repo_url: {
-    type: String,
-    required: true,
-  },
-  utc_time: {
-    type: String,
-    required: true,
-  },
-  current_day: {
-    type: String,
-    required: true,
-  },
-  status_code: {
-    type: Number,
     required: true,
   },
 });
@@ -49,17 +25,7 @@ const User = mongoose.model("User", userSchema);
 // Create a new user
 app.post("/api/users", async (req, res) => {
   try {
-    const utcTime = new Date().toISOString();
-    const dayOfWeek = new Date().toLocaleString("en-US", {
-      weekday: "long",
-    });
-
-    const user = new User({
-      ...req.body,
-      utc_time: utcTime,
-      current_day: dayOfWeek,
-      status_code: res.statusCode,
-    });
+    const user = new User(req.body);
 
     const savedUser = await user.save();
     res.status(201).json(savedUser);
