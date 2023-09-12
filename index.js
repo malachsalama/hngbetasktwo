@@ -7,10 +7,13 @@ require("dotenv").config();
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://Malach:UserMS12345@cluster0.ooayanr.mongodb.net/hngx",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     // The connection is successful, you can start your Express server here.
     app.listen(port, () => {
@@ -20,6 +23,8 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
+
+console.log(process.env.MONGODB_URI);
 
 // Mongoose schema
 const userSchema = new mongoose.Schema({
