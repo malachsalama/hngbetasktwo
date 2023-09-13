@@ -2,6 +2,8 @@
 
 This is a simple REST API built using Node.js and Express for managing user data with a MongoDB database.
 
+![UML Diagram for the API](./assets/UML.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
