@@ -44,7 +44,7 @@ You can now use the API to perform CRUD operations on user data
 
 ## Endpoints
 ### Create a User
-- URL: /api/users
+- URL: /api
 
 - Method: POST
 
@@ -66,18 +66,18 @@ You can now use the API to perform CRUD operations on user data
   ```
 
 ### Retrieve All Users
-- URL: /api/users
+- URL: /api
 - Method: GET
 - Response: JSON array containing all user records
 
 ### Retrieve a User by ID
-- URL: /api/users/:id
+- URL: /api/:id
 - Method: GET
 - Response: JSON object with the user's data or "User not found" if not found
 
 
 ### Update a User by ID
-- URL: /api/users/:id
+- URL: /api/:id
 
 - Method: PUT
 
@@ -92,7 +92,7 @@ You can now use the API to perform CRUD operations on user data
 - Response: JSON object with the updated user's data or "User not found" if not found
 
 ### Delete a User by ID
-- URL: /api/users/:id
+- URL: /api/:id
 - Method: DELETE
 - Response: JSON object with the deleted user's data or "User not found" if not found
 
