@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 // Create a new user
-app.post("/api/users", async (req, res) => {
+app.post("/api", async (req, res) => {
   try {
     const user = new User(req.body);
 
@@ -45,7 +45,7 @@ app.post("/api/users", async (req, res) => {
 });
 
 // Retrieve all users
-app.get("/api/users", async (req, res) => {
+app.get("/api", async (req, res) => {
   try {
     const users = await User.find({});
     res.json(users);
@@ -56,7 +56,7 @@ app.get("/api/users", async (req, res) => {
 });
 
 // Retrieve a user by ID
-app.get("/api/users/:id", async (req, res) => {
+app.get("/api/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await User.findById(userId);
@@ -72,7 +72,7 @@ app.get("/api/users/:id", async (req, res) => {
 });
 
 // Update a user by ID
-app.put("/api/users/:id", async (req, res) => {
+app.put("/api/:id", async (req, res) => {
   const userId = req.params.id;
   const updatedUser = req.body;
   try {
@@ -91,7 +91,7 @@ app.put("/api/users/:id", async (req, res) => {
 });
 
 // Delete a user by ID
-app.delete("/api/users/:id", async (req, res) => {
+app.delete("/api/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await User.findByIdAndRemove(userId);
