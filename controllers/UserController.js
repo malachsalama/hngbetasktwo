@@ -2,12 +2,6 @@ const User = require("../models/UserModel");
 
 // Create a new user
 const createUser = async (req, res) => {
-  if (!req.body) {
-    return res
-      .status(400)
-      .json({ message: "Cannot create new user without details" });
-  }
-
   try {
     const user = new User(req.body);
     await user.save();

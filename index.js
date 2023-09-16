@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const UserController = require("./controllers/UserController");
+const {
+  validateUser,
+  validateId,
+  handleValidationErrors,
+} = require("./middleware/validator");
 
 const app = express();
 require("dotenv").config();
@@ -24,8 +29,28 @@ mongoose
   });
 
 // Routes
-app.post("/api", UserController.createUser);
+app.post(
+  "/api",
+  validateUser,
+  handleValidationErrors,
+  UserController.createUser
+);
 app.get("/api", UserController.getAllUsers);
-app.get("/api/:id", UserController.getUserById);
-app.put("/api/:id", UserController.updateUserById);
-app.delete("/api/:id", UserController.deleteUserById);
+app.get(
+  "/api/:id",
+  validateId,
+  handleValidationErrors,
+  UserController.getUserById
+);
+app.put(
+  "/api/:id",
+  validateId,
+  handleValidationErrors,
+  UserController.updateUserById
+);
+app.delete(
+  "/api/:id",
+  validateId,
+  handleValidationErrors,
+  UserController.deleteUserById
+);
