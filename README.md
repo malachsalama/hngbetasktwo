@@ -50,16 +50,13 @@ You can now use the API to perform CRUD operations on user data
 
 - Method: POST
 
-- Request Body: JSON object with a "name" field (required)
-
-- Example:
+- Request Body:
   ```bash
     {
       "name": "Malach Salama"
     }
   ```
-- Response: JSON object with the created user's data
-- Example:
+- Response:
   ```bash
   {
     "_id": "5fbd34fcaea3bfc125423678",
@@ -70,7 +67,22 @@ You can now use the API to perform CRUD operations on user data
 ### Retrieve All Users
 - URL: /api
 - Method: GET
-- Response: JSON array containing all user records
+- Response:
+  
+  ```bash
+  [
+   {
+   "_id": "6501f90291978bc40cdebfbe",
+   "name": "Malach",
+   "__v": 0
+   },
+   {
+   "_id": "65075790420af016b5ced7d2",
+   "name": "Branson",
+   "__v": 0
+   }
+  ]
+  ```
 
 ### Retrieve a User by ID
 - URL: /api/:id
@@ -83,9 +95,7 @@ You can now use the API to perform CRUD operations on user data
 
 - Method: PUT
 
-- Request Body: JSON object with the "name" field to update
-
-- Example:
+- Request Body:
   ```bash
   {
   "name": "Updated Name"
