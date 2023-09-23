@@ -9,13 +9,13 @@ const validateUser = body("name")
 
 const validateId = param("id")
   .notEmpty()
-  .isInt()
-  .withMessage("ID must be an integer");
+  .isMongoId() // Ensure it's a valid MongoDB ObjectId
+  .withMessage("Id must be a valid MongoDB ObjectId");
 
 const formatValidationErrors = (errors) => {
   return errors.map((error) => {
     return {
-      field: error.field,
+      field: error.param,
       message: error.msg,
     };
   });

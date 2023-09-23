@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const UserController = require("./controllers/UserController");
-const {
-  validateUser,
-  validateId,
-  handleValidationErrors,
-} = require("./middleware/validator");
+const userRoutes = require("./routes/user");
 
 const app = express();
 require("dotenv").config();
@@ -13,6 +8,9 @@ require("dotenv").config();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+// Routes
+app.use("/api", userRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -27,30 +25,3 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
-
-// Routes
-app.post(
-  "/api",
-  validateUser,
-  handleValidationErrors,
-  UserController.createUser
-);
-app.get("/api", UserController.getAllUsers);
-app.get(
-  "/api/:id",
-  validateId,
-  handleValidationErrors,
-  UserController.getUserById
-);
-app.put(
-  "/api/:id",
-  validateId,
-  handleValidationErrors,
-  UserController.updateUserById
-);
-app.delete(
-  "/api/:id",
-  validateId,
-  handleValidationErrors,
-  UserController.deleteUserById
-);

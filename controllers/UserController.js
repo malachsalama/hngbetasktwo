@@ -5,7 +5,11 @@ const createUser = async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
-    return res.status(201).json({ message: "User created successfully" });
+    return res.status(201).json({
+      status: "success",
+      message: "User created successfully",
+      data: user,
+    });
   } catch (err) {
     console.error("Error creating user:", err);
     return res.status(500).send("Internal Server Error");
@@ -15,8 +19,12 @@ const createUser = async (req, res) => {
 // Retrieve all users
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({});
-    return res.json(users);
+    const users = await User.find({}).sort({ createdAt: -1 });
+    return res.status(200).json({
+      status: "success",
+      message: "Users retrieved successfully!",
+      data: users,
+    });
   } catch (err) {
     console.error("Error retrieving users:", err);
     return res.status(500).send("Internal Server Error");
@@ -25,13 +33,17 @@ const getAllUsers = async (req, res) => {
 
 // Retrieve a user by ID
 const getUserById = async (req, res) => {
-  const userId = req.params.id;
+  const { id } = req.params;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).send("User not found");
     }
-    return res.json(user);
+    return res.status(200).json({
+      status: "success",
+      message: "User retrieved successfully!",
+      data: user,
+    });
   } catch (err) {
     console.error("Error retrieving user:", err);
     return res.status(500).send("Internal Server Error");
@@ -40,16 +52,20 @@ const getUserById = async (req, res) => {
 
 // Update a user by ID
 const updateUserById = async (req, res) => {
-  const userId = req.params.id;
+  const { id } = req.params;
   const updatedUser = req.body;
   try {
-    const user = await User.findByIdAndUpdate(userId, updatedUser, {
+    const user = await User.findByIdAndUpdate(id, updatedUser, {
       new: true,
     });
     if (!user) {
       return res.status(404).send("User not found");
     }
-    return res.json({ message: "User updated successfully!" });
+    return res.status(200).json({
+      status: "success",
+      message: "User updated successfully!",
+      data: user,
+    });
   } catch (err) {
     console.error("Error updating user:", err);
     return res.status(500).send("Internal Server Error");
@@ -58,13 +74,17 @@ const updateUserById = async (req, res) => {
 
 // Delete a user by ID
 const deleteUserById = async (req, res) => {
-  const userId = req.params.id;
+  const { id } = req.params;
   try {
-    const user = await User.findByIdAndRemove(userId);
+    const user = await User.findByIdAndRemove(id);
     if (!user) {
       return res.status(404).send("User not found");
     }
-    return res.json({ message: "User deleted successfully!" });
+    return res.status(200).json({
+      status: "success",
+      message: "User deleted successfully!",
+      data: user,
+    });
   } catch (err) {
     console.error("Error deleting user:", err);
     return res.status(500).send("Internal Server Error");
